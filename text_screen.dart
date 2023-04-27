@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:languify/screens/translations.dart';
 
 class TextScreen extends StatelessWidget {
   final String text;
