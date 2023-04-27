@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => DifficultyScreen(
+                    builder: (context) => DifficultyPageScreen(
                       language: _selectedLanguage,
                     ),
                   ),
