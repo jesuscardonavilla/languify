@@ -1,52 +1,60 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:languify/screens/text_screen.dart';
 import 'package:languify/screens/translations.dart';
-import 'text_screen.dart';
+
+class DifficultyPageScreen extends StatelessWidget {
+  final String title;
+  final List<String> difficulties;
+  final Function(String) onDifficultySelected;
+
+  DifficultyPageScreen({
+    required this.title,
+    required this.difficulties,
+    required this.onDifficultySelected,
+  });
+
+  Widget _buildDifficultyButtons() {
+    Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          onPressed: () {},
+          child: Text(Translations.of(context)!.beginner),
+        ),
+        ElevatedButton(
+          onPressed: () {},
+          child: Text(Translations.of(context)!.intermediate),
+        ),
+        ElevatedButton(
+          onPressed: () {},
+          child: Text(Translations.of(context)!.advanced),
+        ),
+      ],
+    ),
 
 
-class DifficultyScreen extends StatefulWidget {
-  final String language;
 
-  const DifficultyScreen({Key? key, required this.language}) : super(key: key);
+  Widget _buildDifficultyList() {
+    return Column(
+      children: difficulties.map((difficulty) => _buildDifficultyButton(difficulty)).toList(),
+    );
+  }
 
-  @override
-  _DifficultyScreenState createState() => _DifficultyScreenState();
-}
-
-class _DifficultyScreenState extends State<DifficultyScreen> {
-  String _difficulty = '';
-
-  void _handleDifficultyChange(String difficulty) {
-    setState(() {
-      _difficulty = difficulty;
-    });
+  Widget difficultyScreen(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: Center(
+        child: _buildDifficultyList(),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Select a difficulty'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {},
-              child: Text(translate('beginnerDifficulty')),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text(translate('intermediateDifficulty')),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text(translate('advancedDifficulty')),
-            ),
-          ],
-        ),
-      ),
-    );
+    return difficultyScreen(context);
   }
 }
-
