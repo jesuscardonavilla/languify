@@ -1,23 +1,62 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-final Map<String, String> translations = {
-  'en': 'English',
-  'es': 'Español',
-  'fr': 'Français',
-  'de': 'Deutsch',
-  'zh': '中文',
-  'ja': '日本語',
-  'ru': 'Русский',
-  'ko': '한국어',
-  'beginnerDifficulty': 'Beginner',
-  'intermediateDifficulty': 'Intermediate',
-  'advancedDifficulty': 'Advanced',
-};
+class Translations {
+  final Locale locale;
 
-String translate(String key, [List<Object>? args]) =>
-    Intl.message(
-      translations[key]!,
-      name: key,
-      args: args,
-      locale: Intl.defaultLocale,
-    );
+  Translations(this.locale);
+
+  static Translations? of(BuildContext context) {
+    return Localizations.of<dynamic>(context, Translations);
+  }
+
+  static Map<String, Map<String, String>> _translations = {
+    'en': {
+      'Beginner': 'Beginner',
+      'Intermediate': 'Intermediate',
+      'Advanced': 'Advanced',
+    },
+    'es': {
+      'Beginner': 'Principiante',
+      'Intermediate': 'Intermedio',
+      'Advanced': 'Avanzado',
+    },
+    'fr': {
+      'Beginner': 'Débutant',
+      'Intermediate': 'Intermédiaire',
+      'Advanced': 'Avancé',
+    },
+    'de': {
+      'Beginner': 'Anfänger',
+      'Intermediate': 'Mittelstufe',
+      'Advanced': 'Fortgeschritten',
+    },
+    'zh': {
+      'Beginner': '初学者',
+      'Intermediate': '中级',
+      'Advanced': '高级',
+    },
+    'ja': {
+      'Beginner': '初心者',
+      'Intermediate': '中級者',
+      'Advanced': '上級者',
+    },
+    'ru': {
+      'Beginner': 'Начинающий',
+      'Intermediate': 'Средний',
+      'Advanced': 'Продвинутый',
+    },
+    'ko': {
+      'Beginner': '초보자',
+      'Intermediate': '중급',
+      'Advanced': '고급',
+    },
+  };
+
+  String? translate(BuildContext context, String key) {
+    final locale = Localizations.localeOf(context);
+    return _translations[locale.languageCode]?.containsKey(key) == true
+        ? _translations[locale.languageCode]![key]
+        : key;
+  }
+}
